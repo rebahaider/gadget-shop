@@ -14,15 +14,13 @@ const Register = () => {
         formState: { errors },
     } = useForm();
 
-    // const navigate = useNavigate();
+    const navigate = useNavigate();
 
     const onSubmit = (data) => {
-        // createUser(data.email, data.password);
-        // navigate("/");
-        console.log(data);
+        createUser(data.email, data.password);
+        navigate("/");
     };
-
-
+    
     return (
         <div>
             <div className="hero bg-base-200 min-h-screen">
