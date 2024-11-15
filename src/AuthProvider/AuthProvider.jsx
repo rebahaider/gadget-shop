@@ -41,11 +41,19 @@ const AuthProvider = ({ children }) => {
         const unSubscribe = onAuthStateChanged(auth, currentUser => {
             setUser(currentUser);
             // api call for jwt token generate
-            if(currentUser){
-                axios.post(`${import.meta.env.BASE_URL}/authentication`)
+            if (currentUser) {
+                axios.post(`http://localhost:4000/authentication`, { email: currentUser.email })
+                    .then(data => {
+                        if (data.data) {
+                            localStorage.setItem('access-token', data?.data?.token)
+                            setLoading(false);
+                        }
+                    })
             }
-            // console.log(currentUser)
-            // setLoading(false);
+            else {
+                localStorage.removeItem("access-token");
+                setLoading(false);
+            }
         });
 
         return () => {
