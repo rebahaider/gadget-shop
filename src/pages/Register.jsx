@@ -2,6 +2,7 @@ import { Link, useNavigate } from "react-router-dom"
 import useAuth from "../hooks/useAuth";
 import { useForm } from "react-hook-form";
 import GoogleLogin from "../components/login-registration/googleLogin";
+import axios from "axios";
 
 const Register = () => {
 
@@ -17,10 +18,22 @@ const Register = () => {
     const navigate = useNavigate();
 
     const onSubmit = (data) => {
-        createUser(data.email, data.password);
-        navigate("/");
+        const email = data.email;
+        const role = data.role;
+        const status = role === "Buyer" ? "Approved" : "Pending";
+        const wishList = [];
+
+        const userData = { email, role, status, wishList };
+        // console.log(userData);
+        createUser(data.email, data.password)
+            .then(() => {
+                axios.post("http://localhost:4000/users", userData).then((res) => {
+                    console.log(res);
+                });
+            });
+        // navigate("/");
     };
-    
+
     return (
         <div>
             <div className="hero bg-base-200 min-h-screen">
