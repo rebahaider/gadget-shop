@@ -7,6 +7,8 @@ import ContactUs from "../pages/ContactUs";
 import Login from "../pages/Login";
 import Register from "../pages/Register";
 import DashboardLayout from "../assets/layouts/DashboardLayout";
+import PrivateRoutes from "./private/PrivateRoutes";
+import OverView from "../pages/Dashboard/OverView";
 
 export const router = createBrowserRouter([
   {
@@ -41,9 +43,13 @@ export const router = createBrowserRouter([
   },
   {
     path: "/dashboard",
-    element: <DashboardLayout></DashboardLayout>,
+    element:
+      <PrivateRoutes>
+        <DashboardLayout></DashboardLayout>
+      </PrivateRoutes>,
     children: [{
-
+      path: "/dashboard/overview",
+      element: <OverView></OverView>,
     }]
   }
 ]);

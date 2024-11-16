@@ -3,11 +3,11 @@ import Sidebar from "../../components/dashboard/Sidebar"
 
 const DashboardLayout = () => {
     return (
-        <div className="grid lg:grid-clos-12">
-            <div className="lg:col-span-2">
+        <div className="grid lg:grid-cols-12">
+            <div className="col-span-2">
                 <Sidebar></Sidebar>
             </div>
-            <div className="lg:col-span-10">
+            <div className="col-span-10">
                 <Outlet></Outlet>
             </div>
         </div>
