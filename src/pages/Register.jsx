@@ -3,6 +3,7 @@ import useAuth from "../hooks/useAuth";
 import { useForm } from "react-hook-form";
 import GoogleLogin from "../components/login-registration/googleLogin";
 import axios from "axios";
+import Swal from "sweetalert2";
 
 const Register = () => {
 
@@ -27,11 +28,21 @@ const Register = () => {
         // console.log(userData);
         createUser(data.email, data.password)
             .then(() => {
-                axios.post("http://localhost:4000/users", userData).then((res) => {
-                    console.log(res);
-                });
+                axios.post("http://localhost:4000/users", userData)
+                    .then((res) => {
+                        console.log(res.data);
+                        if (res.data.insertedId) {
+                            Swal.fire({
+                                position: "center",
+                                icon: "success",
+                                title: "Registration Successful",
+                                showConfirmButton: false,
+                                timer: 1500
+                            });
+                            navigate("/");
+                        }
+                    });
             });
-        // navigate("/");
     };
 
     return (
